@@ -15,6 +15,8 @@
 - Implemented sign out feature 
 - Update profile APIs
 - Fetch movies from TMDB
+- BugFix: Sign up user displayName and profile picture update 
+- BugFix: If the user is not logged then redirect to "/" for Login Page And permit is denied if user wants to go "/browse" page without login, and vice versa.
 
 # Features
 - Login/SignUp

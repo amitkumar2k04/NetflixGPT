@@ -9,6 +9,7 @@ import {
 import { auth } from "../utils/firebase";
 import { useDispatch } from 'react-redux';
 import { addUser } from "../utils/userSlice";
+import { BANNER_IMG, USER_AVTAR } from "../utils/constants";
 
 const Login = () => {
   const [isSignInForm, setIsSignInForm] = useState(true);
@@ -38,8 +39,7 @@ const Login = () => {
           // Updating the profile
           updateProfile(user, {
             displayName: "name.current.value",
-            photoURL:
-              "https://avatars.githubusercontent.com/u/145969004?s=400&u=85049adc79b1bb089db9fd630aadba4e9fd52b6c&v=4",
+            photoURL: USER_AVTAR,
           })
             .then(() => {
               // Dispatch an action after Profile updated! then navigate
@@ -90,8 +90,8 @@ const Login = () => {
       <Header />
       <div className="absolute">
         <img
-          src="https://assets.nflxext.com/ffe/siteui/vlv3/6cefb2f5-90be-4f57-adc4-f6c3c579273d/3943990c-f4e0-4147-82ad-f531e2b547f3/IN-en-20240401-popsignuptwoweeks-perspective_alpha_website_small.jpg"
-          alt=""
+          src={BANNER_IMG}
+          alt="Bg-img"
         />
       </div>
       <form

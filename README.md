@@ -17,6 +17,24 @@
 - Fetch movies from TMDB
 - BugFix: Sign up user displayName and profile picture update 
 - BugFix: If the user is not logged then redirect to "/" for Login Page And permit is denied if user wants to go "/browse" page without login, and vice versa.
+- Unsbuscribe to the onAuthStateChanged callback
+- Add hard coaded data to the constants files.
+- Register for TMDB API & create an app & get access tokens
+- Get data from TMDB Docs from Now playing movies list API
+- created Custom hook for nowPlayingMovies
+- create movieSlice
+- update store with movies data
+- planning for mainContainer and secondary container
+- fetch data for trailer video 
+- update store with trailer video data
+- Embeded the YouTube video and make it autoplay & mute
+- Added tailwind classes to make main container look awesome
+- Build Secondary Component
+- Build Movie List 
+- Build Movie Card 
+- Added TMDB Image CDN URL
+- Made the browse page amazing with tailwind css
+- created custom hooks usepopularMovies 
 
 # Features
 - Login/SignUp

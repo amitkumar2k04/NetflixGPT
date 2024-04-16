@@ -1,4 +1,3 @@
-import axios from 'axios';
 
 export const LOGO =
   "https://upload.wikimedia.org/wikipedia/commons/7/7a/Logonetflix.png";
@@ -19,4 +18,5 @@ export const BANNER_IMG =
     },
   };
 
+  export const IMG_CDN_URL = "https://image.tmdb.org/t/p/w500/";
   

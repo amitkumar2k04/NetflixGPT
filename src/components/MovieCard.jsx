@@ -1,10 +1,10 @@
 import React from "react";
 import { IMG_CDN_URL } from "../utils/constants";
 
-const MovieCard = (posterPath) => {
+const MovieCard = ({ posterPath }) => {
   return (
-    <div className="w-48">
-      <img alt="Movie card" src={IMG_CDN_URL + posterPath}></img>
+    <div className="md:w-48 w-40 pr-4 transition-transform transform hover:scale-90 cursor-pointer">
+      <img className="object-cover rounded-lg" alt="Movie card" src={IMG_CDN_URL + posterPath} />
     </div>
   );
 };

@@ -1,11 +1,10 @@
-import React from "react";
 import { useSelector } from "react-redux";
-import useMovieTrailer from "../hooks/useMovieTrailer";
+import React from "react";
+import  useMovieTrailer  from "../hooks/useMovieTrailer";
 
-const VideoBackground = ({ movie_id }) => {
+const VideoBackground = ({ movieId }) => {
   const trailerVideo = useSelector((store) => store.movies?.trailerVideo);
-
-  useMovieTrailer(movie_id);
+  useMovieTrailer(movieId);
 
   return (
     <div className="h-full">

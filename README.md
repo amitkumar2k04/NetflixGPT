@@ -36,6 +36,8 @@
 - Made the browse page amazing with tailwind css
 - created custom hooks usepopularMovies 
 - Buiding GPT search feature
+- created GPTSerchPageBar & GPTSerchPagePage
+- Added multilingual feature in our app
 
 # Features
 - Login/SignUp

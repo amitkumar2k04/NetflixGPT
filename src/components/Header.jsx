@@ -54,7 +54,7 @@ const Header = () => {
     return () => unsubscribe();
   }, []);
 
-  const handleGptSearchClick = () => {
+  const gptToggleFun = () => {
     // Toggle GPT Search button
     dispatch(toggleGptSearchView());
   };
@@ -66,7 +66,7 @@ const Header = () => {
         <div className="flex p-2">
           {showGptSearch && (
             <select
-              className="bg-gray-900 text-white p-2 m-2 rounded-md outline-none"
+              className="hidden md:block border-none bg-slate-200 p-2 rounded-md"
               onChange={handleLanguageChange}
             >
               {SUPPORTED_LANGUAGES.map((lang) => (
@@ -77,10 +77,10 @@ const Header = () => {
             </select>
           )}
           <button
-            className="py-2 px-4 mx-4 bg-purple-800 text-white rounded-lg"
-            onClick={handleGptSearchClick}
+            className="py-2 px-4 mx-4 bg-red-700 text-white rounded-md font-sans font-semibold"
+            onClick={gptToggleFun}
           >
-            {showGptSearch ? "Homepage" : "GPT Search"}
+            {showGptSearch ? "Home" : "GPT Search"}
           </button>
           <img className="w-12 h-12" src={user?.photoURL} alt="usericon" />
           <button onClick={handleSignOut} className="font-bold text-white">

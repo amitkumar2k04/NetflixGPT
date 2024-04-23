@@ -1,25 +1,53 @@
 import React, { useRef } from "react";
 import lang from "../../utils/languageConstants";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import openai from "../../utils/openAI";
+import { GEMINI_API_KEY, API_OPTIONS } from "../../utils/constants";
+import { addGptMovieResult } from "../../utils/gptSlice";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
 const GptSearchBar = () => {
   const langKey = useSelector((store) => store.config.lang);
   const searchText = useRef(null);
+  const dispatch = useDispatch();
+  // this function is doing that search movie from TMDB
+  const searchMovieTMDB = async (movie) => {
+    const data = await fetch(
+      'https://api.themoviedb.org/3/search/movie?query="+movie+"&include_adult=false&language=en-US&page=1',
+      API_OPTIONS
+    );
+    const json = await data.json();
+    return json.results;
+  };
+
+  // Access your API key (see "Set up your API key" above)
+  const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
+
   const handleGptSearchClick = async () => {
     // console.log(searchText.current.value);
-    // Make an API call to GPT API to get movie results
+    // Make an API call to Gemini API to get movie results:
 
-    const gptQuery =
-      "Act as a Movie Recommendation system and suggest some movies for the query : " +
+    const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+    const prompt =
+      "Act as a movie recommendation system and suggest some movies for the query" +
       searchText.current.value +
-      ". only give me the names of 5 movies, comma seperated like the Exapmple Result given ahead. Example Result is: Gadar, life of pie, Border, The Ghazi Attack, 12th fail";
+      ".only give me names of movies,comma separated like example result given ahead.Example result:Gadar, life of pie, Border, The Ghazi Attack, 12th fail.";
 
-    const GptResults = await openai.chat.completions.create({
-      messages: [{ role: "user", content: gptQuery }],
-      model: "gpt-3.5-turbo",
-    });
-    console.log(GptResults.choices);
+    const result = await model.generateContent(prompt);
+    const gptResults = await result.response;
+    // console.log(gptResults);
+    const gptMovies =
+      gptResults.candidates?.[0]?.content?.parts?.[0]?.text.split(",");
+      // console.log(gptMovies);
+
+    // For each movie I will search TMDB API and findout the results of the movie(for all 5 movies)
+    const promiseArray = gptMovies.map((movie) => searchMovieTMDB(movie));
+    const tmdbResults = await Promise.all(promiseArray);
+    console.log(tmdbResults);
+
+    dispatch(
+      addGptMovieResult({ movieNames: gptMovies, movieResults: tmdbResults })
+    );
   };
 
   return (

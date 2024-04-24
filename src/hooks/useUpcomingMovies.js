@@ -1,4 +1,4 @@
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 import { API_OPTIONS } from "../utils/constants";
 import { addUpcomingMovies } from "../utils/movieSlice";
 import { useEffect } from "react";
@@ -7,6 +7,11 @@ const useUpcomingMovies = () => {
   // This hook is doing is Fetch data from TMDB API and update the store
 
   const dispatch = useDispatch();
+
+    //menoirization
+    const UpcomingMovies = useSelector(
+      (store) => store.movies.UpcomingMovies
+    );
 
   const getUpcomingMovies = async () => {
     const data = await fetch(
@@ -19,7 +24,7 @@ const useUpcomingMovies = () => {
   };
 
   useEffect(() => {
-    getUpcomingMovies();
+    if(!UpcomingMovies) getUpcomingMovies();
   }, []);
 };
 

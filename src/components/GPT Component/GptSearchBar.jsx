@@ -7,7 +7,7 @@ import {
   addGptMovieResult,
   clearMovieResults,
   setSearchBtnClicked,
-} from "../../utils/gptSlice";
+} from "../../slice/gptSlice";
 import { toast } from "react-toastify";
 
 const GptSearchBar = () => {
@@ -42,13 +42,13 @@ const GptSearchBar = () => {
       // For each movie I will search TMDB API and findout the results of the movie(for all 5 movies)
       const promiseArray = gptMovies.map((movie) => searchMovieTMDB(movie));
       const tmdbResults = await Promise.all(promiseArray);
-      console.log(tmdbResults);
+      // console.log(tmdbResults);
 
       dispatch(
         addGptMovieResult({ movieNames: gptMovies, movieResults: tmdbResults })
       );
     } catch (error) {
-      console.error(error);
+      // console.error(error);
       toast.error("Limit Exceeded: Please try again after 20s");
     }
   };
@@ -56,10 +56,11 @@ const GptSearchBar = () => {
   // Search movie from TMDB
   const searchMovieTMDB = async (movie) => {
     try {
-      const data = await fetch(
-        'https://api.themoviedb.org/3/search/movie?query="+movie+"&include_adult=false&language=en-US&page=1',
-        API_OPTIONS
+      const data=await fetch(
+        "https://api.themoviedb.org/3/search/movie?query=" + movie + "&include_adult=false&language=en-US&page=1"
+        ,API_OPTIONS
       );
+      console.log(data);
       const json = await data.json();
       return json.results;
     } catch (error) {
@@ -68,19 +69,19 @@ const GptSearchBar = () => {
   };
 
   return (
-    <div className="md:pt-[12%] pt-[40%]  flex justify-center">
+    <div className="flex justify-center items-center">
       <form
-        className="w-full px-5 md:w-1/2 grid grid-cols-12"
+        className="pt-[15%] w-full md:w-1/2 grid grid-cols-12 gap-4 p-2"
         onSubmit={(e) => e.preventDefault()}
       >
         <input
           ref={search}
           type="text"
-          className="p-3 col-span-9 rounded-l-full outline-none text-center text-sm sm:text-base"
+          className="p-4 col-span-9 md:col-span-10 rounded"
           placeholder={lang[langKey].gptSearchPlaceholder}
         />
         <button
-          className="col-span-3 py-2 px-4 bg-red-700 hover:bg-red-800 text-white rounded-r-full"
+          className="bg-red-700 text-white font-bold col-span-3 p-4 md:col-span-2 rounded"
           onClick={handleGptSearchClick}
         >
           {lang[langKey].search}

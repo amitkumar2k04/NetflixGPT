@@ -4,11 +4,11 @@ import useMovieInfo from "../../hooks/useMovieInfo";
 import Header from "../Header";
 import { IMG_CDN_URL } from "../../utils/constants"; 
 import { useDispatch, useSelector } from "react-redux";
-import MovieInfoContainer from "./MovieInfoContainer"
 import MovieCast from "./MovieCast";
 import MovieVideos from "./MovieVideos";
 import Loader from "../Loader";
 import { setOtherURL } from "../../slice/configSlice";
+import MovieInfoContainer from "../MovieInfoComponents/MovieInfoContainer";
 
 const MovieInfo = () => {
   const dispatch = useDispatch();
@@ -32,5 +32,4 @@ const MovieInfo = () => {
     </div>
   );
 };
-
 export default MovieInfo;
